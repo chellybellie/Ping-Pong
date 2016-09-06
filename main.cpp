@@ -139,6 +139,7 @@ void drawPaddle(const Player &p)
 	sfw::drawLine(p.X, p.size + p.Y, p.X, p.Y, p.color);
 }
 
+
 void drawScore(unsigned font, int p1score, int p2score)
 {
 	char buffer[64] = { 0 };
