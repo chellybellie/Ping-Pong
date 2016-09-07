@@ -38,5 +38,8 @@
     <ClInclude Include="Draw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="gamestate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
