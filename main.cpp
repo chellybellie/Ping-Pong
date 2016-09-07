@@ -1,7 +1,7 @@
 
 #include "sfwdraw.h"
 #include <random>
-
+#include <time.h>
 struct Ball
 {
 	float x = 0;
@@ -14,13 +14,20 @@ struct Ball
 };
 
 
+float randRange(int start, int end)
+{
+	srand(time(0));
+	return rand() % (end - start + 1) - start;
+	
+}
+
 Ball createBall(float x, float y, float VelX, float VelY, float Radius, unsigned int color)
 {
 	Ball retval;
 	retval.x      = x;
 	retval.y      = y;
-	retval.VelX   = rand() % 10;
-	retval.VelY   = rand() % 10;
+	retval.VelX   = randRange(15,25);
+	retval.VelY   = randRange(15,25);
 	retval.Radius = Radius;
 	retval.color = color;
 	return retval;
@@ -51,7 +58,7 @@ Player createPaddle(float X, char up, char down, unsigned int color, int size, f
 }
 
 
-void updateball(Ball &b)
+void updateball(Ball &b, Player &p1, Player &p2)
 {
 
 	b.x += b.VelX;
@@ -60,6 +67,8 @@ void updateball(Ball &b)
 	if (b.y > 600 - b.Radius)
 	{
 		b.y = 600 - b.Radius;
+		
+		
 		b.VelY *= -1;
 	}
 	if (b.y < 0)
@@ -67,9 +76,22 @@ void updateball(Ball &b)
 		b.y = 0;
 		b.VelY *= -1;
 	}
-	if (b.x < 0 || b.x > 800)
+	if (b.x < 0)
 	{
-		b.x = 400;
+		
+		p1.score++;
+		printf("%d to %d \n", p1.score, p2.score);
+		
+		b.x = 300;
+		b.y = 400;
+	}
+		
+		if( b.x > 800)
+	{
+			p2.score++;
+			printf("%d to %d \n", p1.score, p2.score);
+		b.x = 300;
+		b.y = 400;
 	}
 }
 
@@ -103,26 +125,8 @@ void Collision(Ball &b, Player &p1,  Player &p2)
 		b.VelX *= -1;
 		b.x = p2.X - b.Radius;
 	}
-	if (b.x < 0)
-	{
-		p1.score++;
-		
-		printf("%d to %d \n", p1.score, p2.score);
-		b.x = 30;
-		b.y = 300;
-		b.VelX *= -1;
-	}
-	if (b.x > 800)
-	{
-		p2.score++;
-
-		printf("%d to %d \n", p1.score, p2.score);
-		b.x = 770;
-		b.y = 300;
-		b.VelX *= -1;
-
-	}
 }
+
 
 
 void drawball(const Ball &b)
@@ -181,7 +185,7 @@ void main()
 		{
 			updatePaddle(p1);
 			updatePaddle(p2);
-			updateball(b1);
+			updateball(b1, p1, p2);
 			Collision(b1, p1, p2);
 		}
 
