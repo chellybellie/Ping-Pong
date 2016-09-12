@@ -22,14 +22,14 @@ GameState CreateGameState()
 {
 	GameState gs;
 
-	Player p1 = createPaddle(10, 'W', 'S', WHITE, 100, 8);
-	Player p2 = createPaddle(790, 'I', 'K', RED, 100, 8);
-	Ball b1 = createBall(300, 300, 1, 1, 15, WHITE);
+	gs.p1 = createPaddle(10, 'W', 'S', WHITE, 100, 8);
+	gs.p2 = createPaddle(790, 'I', 'K', RED, 100, 8);
+	gs.b1 = createBall(300, 300, 1, 1, 15, WHITE);
 
-	unsigned f = sfw::loadTextureMap("./res/tonc_font.png", 16, 6);
-	unsigned d = sfw::loadTextureMap("./res/fontmap.png", 16, 16);
-	unsigned r = sfw::loadTextureMap("./res/background.jpg");
-	unsigned u = sfw::loadTextureMap("./res/crosshair.png");
+	gs.f = sfw::loadTextureMap("./res/tonc_font.png", 16, 6);
+	gs.d = sfw::loadTextureMap("./res/fontmap.png", 16, 16);
+	gs.r = sfw::loadTextureMap("./res/background.jpg");
+	gs.u = sfw::loadTextureMap("./res/crosshair.png");
 	return gs;
 }
 
@@ -46,9 +46,7 @@ void drawGameState(const GameState &gs)
 {
 	bool GameOver = false;
 
-
-
-	if (!GameOver)
+	//if (!GameOver)
 
 
 		drawScore(gs.font, gs.p1.score, gs.p2.score);
@@ -65,6 +63,7 @@ void drawGameState(const GameState &gs)
 		drawWin2(gs.font);
 
 	}
+
 	drawPaddle(gs.p1);
 	drawPaddle(gs.p2);
 	drawball(gs.b1);
