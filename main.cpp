@@ -6,6 +6,10 @@
 #include "Draw.h"
 #include "gamestate.h"
 #include "main.h"
+#include "Splash.h"
+#include "menustate.h"
+#include "Depart.h"
+#include "Option.h"
 
 
 
@@ -17,30 +21,56 @@ void main()
 	int d = sfw::loadTextureMap("./res/fontmap.png", 16, 16);
 
 	GameState gs;
-	//MenuState ms;
+	splash splash;
+	depart depart;
+	option option;
+
+	splash.init(d);
+	depart.init(d);
+	option.init(d);
+
+	menueState state = Enter_Splash;
 
 	gs.CreateGameState(d);
 
 	while (sfw::stepContext())
 	{
-		//switch (CURRENT)
-		//{
-		//case 0: 
-		//	ms.update();
-		//	ms.draw();
-		//	break;
-		//case 1:
-		//	gs.updateGameState();
-		//	gs.drawGameState();
-		//}
-
-		if (gs.isGameOver() == false)
+		switch (state)
 		{
-			gs.updateGameState();
+		case Enter_Option:
+			option.play();
+		case Option:
+			option.step();
+			option.draw();
+			state = option.next();
+			break;
 
+		case Enter_Splash:
+			splash.play();
+		case Splash:
+			splash.step();
+			splash.draw();
+			state = splash.next();
+			break;
+
+		case Enter_Depart:
+			depart.play();
+		case Depart:
+			depart.step();
+			depart.draw();
+			state = depart.next();
+			break;
+		
+
+		case Enter_Game:
+			gs.isGameOver();
+			gs.CreateGameState(d);
+		case Game:
+			gs.updateGameState();
 			gs.drawGameState();
+			state = gs.nextAppState();
 		}
-		else sfw::drawString(d, "Try Again! \n", 310, 300, 20, 20, 0, 0, YELLOW);
+
 	}
 		
 	sfw::termContext();

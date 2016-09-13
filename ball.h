@@ -1,6 +1,6 @@
 #pragma once
 
-struct Player;
+class Player;
 
 class Ball
 {

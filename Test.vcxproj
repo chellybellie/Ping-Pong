@@ -125,17 +125,23 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ball.cpp" />
+    <ClCompile Include="Depart.cpp" />
     <ClCompile Include="draw.cpp" />
     <ClCompile Include="gamestate.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Option.cpp" />
     <ClCompile Include="paddle.cpp" />
+    <ClCompile Include="Splash.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ball.h" />
+    <ClInclude Include="Depart.h" />
     <ClInclude Include="Draw.h" />
     <ClInclude Include="gamestate.h" />
-    <ClInclude Include="main.h" />
+    <ClInclude Include="menustate.h" />
+    <ClInclude Include="Option.h" />
     <ClInclude Include="paddle.h" />
+    <ClInclude Include="Splash.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

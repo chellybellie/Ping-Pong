@@ -6,9 +6,7 @@
 
 void GameState:: CreateGameState(int a_font)
 {
-	// We can use the values in our gamestate directly.
-
-	//GameState gs;
+	
 
 	p1.createPaddle(10, 'W', 'S', WHITE, 100, 8);
 	p2.createPaddle(790, 'I', 'K', RED, 100, 8);
@@ -22,13 +20,12 @@ void GameState:: CreateGameState(int a_font)
 
 void GameState::updateGameState()
 {
-	//updatePaddle(gs.p1);
-	//updatePaddle(gs.p2);
+
 
 	p1.updatePaddle();
 	p2.updatePaddle();
 	b1.updateball(p1, p2);
-	//Collision(gs.b1, gs.p1, gs.p2);
+	
 	if (p1.getScore() >= 10)
 	{
 		GameOver = true;
@@ -64,4 +61,11 @@ void GameState::drawGameState()
 	p1.drawPaddle();
 	p2.drawPaddle();
 	b1.drawball();
+}
+
+menueState GameState::nextAppState()
+{
+	if (isGameOver())
+		return Enter_Depart;
+	else return Game;
 }

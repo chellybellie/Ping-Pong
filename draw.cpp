@@ -16,7 +16,6 @@ void drawScore(unsigned font, int p1score, int p2score)
 void drawWin(unsigned font)
 {
 	sfw::drawString(font, "Game Over PLayer 1 Wins!", 160, 600, 20, 20);
-	getchar();
 }
 
 void drawWin2(unsigned font)
