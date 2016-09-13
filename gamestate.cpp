@@ -20,7 +20,7 @@ void GameState:: CreateGameState(int a_font)
 
 void GameState::updateGameState()
 {
-
+	
 
 	p1.updatePaddle();
 	p2.updatePaddle();
@@ -65,7 +65,7 @@ void GameState::drawGameState()
 
 menueState GameState::nextAppState()
 {
-	if (isGameOver())
+	if (GameOver)
 		return Enter_Depart;
 	else return Game;
 }

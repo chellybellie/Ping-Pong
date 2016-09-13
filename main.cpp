@@ -63,7 +63,7 @@ void main()
 		
 
 		case Enter_Game:
-			gs.isGameOver();
+			//gs.isGameOver();
 			gs.CreateGameState(d);
 		case Game:
 			gs.updateGameState();

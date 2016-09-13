@@ -13,6 +13,8 @@ void Player::createPaddle(float a_X, char a_up, char a_down,
 	color = a_color;
 	size = a_size;
 	speed = a_speed;
+
+	score = 0;
 }
 void Player::drawPaddle()
 {
