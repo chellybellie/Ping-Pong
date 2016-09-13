@@ -12,60 +12,70 @@ float randRange(int start, int end)
 
 }
 
-void drawball(const Ball &b)
+void Ball::drawball()
 {
-	sfw::drawCircle(b.x, b.y, b.Radius, 12, b.color);
+	sfw::drawCircle(x, y, Radius, 12, color);
 
 }
 
-Ball createBall(float x, float y, float VelX, float VelY, float Radius, unsigned int color)
+void Ball::createBall(float a_x, float a_y, float a_Radius, unsigned int a_color)
 {
-	Ball retval;
-	retval.x = x;
-	retval.y = y;
-	retval.VelX = randRange(15, 25);
-	retval.VelY = randRange(15, 25);
-	retval.Radius = Radius;
-	retval.color = color;
-	return retval;
+	x = a_x;
+	y = a_y;
+	VelX = randRange(15, 25);
+	VelY = randRange(15, 25);
+	Radius = a_Radius;
+	color = a_color;
 }
 
 
 
 
-void updateball(Ball &b, Player &p1, Player &p2)
+void Ball::updateball(Player &p1, Player &p2)  
 {
 
-	b.x += b.VelX;
-	b.y += b.VelY;
+	x += VelX;
+	y += VelY;
 
-	if (b.y > 600 - b.Radius)
+	if (y > 600 - Radius)
 	{
-		b.y = 600 - b.Radius;
+		y = 600 - Radius;
 
 
-		b.VelY *= -1;
+		VelY *= -1;
 	}
-	if (b.y < 0)
+	if (y < 0)
 	{
-		b.y = 0;
-		b.VelY *= -1;
+		y = 0;
+		VelY *= -1;
 	}
-	if (b.x < 0)
+	if (x < 0)
 	{
 
-		p1.score++;
-		printf("%d to %d \n", p1.score, p2.score);
+		p1.doScore();
+		printf("%d to %d \n", p1.getScore(), p2.getScore());
 
-		b.x = 300;
-		b.y = 400;
+		x = 300;
+		y = 400;
 	}
 
-	if (b.x > 800)
+	if (x > 800)
 	{
-		p2.score++;
-		printf("%d to %d \n", p1.score, p2.score);
-		b.x = 300;
-		b.y = 400;
+		p2.doScore();
+		printf("%d to %d \n", p1.getScore(), p2.getScore());
+		x = 300;
+		y = 400;
+	}
+
+
+	if (x - Radius < p1.getX() && y > p1.getBot() && y < p1.getTop())
+	{
+		VelX *= -1;
+		x = p1.getX() + Radius;
+	}
+	if (x + Radius > p2.getX() && y > p2.getBot() && y < p2.getTop())
+	{
+		VelX *= -1;
+		x = p2.getX() - Radius;
 	}
 }

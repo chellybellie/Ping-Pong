@@ -1,4 +1,5 @@
 #pragma once
+
 void drawWin2(unsigned font);
 
 void drawWin(unsigned font);

@@ -1,53 +1,37 @@
 #pragma once
+#include "sfwdraw.h"
 #include "paddle.h"
 #include <iostream>
-#include "sfwdraw.h"
-#include "ball.h"
 
 
-Player createPaddle(float X, char up, char down, unsigned int color, int size, float speed)
+void Player::createPaddle(float a_X, char a_up, char a_down,
+								unsigned int a_color, int a_size, float a_speed)
 {
-	Player retval;
-	retval.up = up;
-	retval.down = down;
-	retval.X = X;
-	retval.color = color;
-	retval.size = size;
-	retval.speed = speed;
-
-	return retval;
+	up = a_up;
+	down = a_down;
+	X= a_X;
+	color = a_color;
+	size = a_size;
+	speed = a_speed;
 }
-void drawPaddle(const Player &p)
+void Player::drawPaddle()
 {
-	sfw::drawLine(p.X, p.size + p.Y, p.X, p.Y, p.color);
+	sfw::drawLine(X, size + Y, X, Y, color);
 }
 
 
-void updatePaddle(Player &p)
+void Player::updatePaddle()
 {
-	// also make sure that if Y < 0, that Y stops at 0
-	if (sfw::getKey(p.up))
+
+	if (sfw::getKey(up))
 	{
-		p.Y += p.speed;
+		Y += speed;
 	}
-	if (sfw::getKey(p.down))
+	if (sfw::getKey(down))
 	{
-		p.Y -= p.speed;
+		Y -= speed;
 	}
 
-	if (p.Y > 600 - p.size) p.Y = 600 - p.size;
-	if (p.Y  <   0) p.Y = 0;
-}
-void Collision(Ball &b, Player &p1, Player &p2)
-{
-	if (b.x - b.Radius < p1.X && b.y > p1.Y && b.y < (p1.Y + p1.size))
-	{
-		b.VelX *= -1;
-		b.x = p1.X + b.Radius;
-	}
-	if (b.x + b.Radius > p2.X && b.y > p2.Y && b.y < (p2.Y + p2.size))
-	{
-		b.VelX *= -1;
-		b.x = p2.X - b.Radius;
-	}
+	if (Y > 600 - size) Y = 600 - size;
+	if (Y  <   0) Y = 0;
 }

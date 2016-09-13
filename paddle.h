@@ -1,23 +1,33 @@
 #pragma once
 
-struct Ball;
+class Ball;
 
-struct Player
+class Player
 {
-	float Y = 10, X;
-	float size = 50;
+private:
+
 	unsigned int color;
 	float speed;
 	char up, down;
+	float Y = 10, X;
+	float size = 50;
 	int score = 0;
+public:
+
+
+
+	float getTop() { return Y + size; }
+	float getBot() { return Y; }
+	float getX()   { return X; }
+
+	void createPaddle(float X, char up, char down, unsigned int color, int size, float speed);
+
+	void drawPaddle();
+
+	void updatePaddle();
+
+	int getScore() { return score; }
+
+	void doScore() { score++; }
 };
-
-Player createPaddle(float X, char up, char down, unsigned int color, int size, float speed);
-
-void drawPaddle(const Player &p);
-
-void updatePaddle(Player &p);
-
-void Collision(Ball &b, Player &p1, Player &p2);
-
 
