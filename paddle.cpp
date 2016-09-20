@@ -4,12 +4,14 @@
 #include <iostream>
 
 
-void Player::createPaddle(float a_X, char a_up, char a_down,
+void Player::createPaddle(float a_X, float a_Y, float a_X2, float a_Y2,
 								unsigned int a_color, int a_size, float a_speed)
 {
-	up = a_up;
-	down = a_down;
-	X= a_X;
+	
+	X = a_X;
+	Y = a_Y;
+	X2 = a_X2;
+	Y2 = a_Y2;
 	color = a_color;
 	size = a_size;
 	speed = a_speed;
@@ -18,7 +20,7 @@ void Player::createPaddle(float a_X, char a_up, char a_down,
 }
 void Player::drawPaddle()
 {
-	sfw::drawLine(X, size + Y, X, Y, color);
+	sfw::drawLine(X,Y, X2, Y2, color);
 }
 
 
@@ -37,3 +39,15 @@ void Player::updatePaddle()
 	if (Y > 600 - size) Y = 600 - size;
 	if (Y  <   0) Y = 0;
 }
+
+
+//
+//void VertWall::draw()
+//{
+//	sfw::drawLine(x, y, x, y+size);
+//}
+//
+//void HorzWall::draw()
+//{
+//	sfw::drawLine(x, y, x+size, y);
+//}

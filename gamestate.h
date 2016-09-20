@@ -9,11 +9,14 @@
 class GameState
 {
 private:
-	Player p1, p2;
-	int score;
+	Player p1, p2, p3;
 	Ball b1;
 	unsigned font;
 	bool GameOver;
+
+	HorzWall hwalls[2][5];
+	VertWall vwalls[2][5];
+
 
 public:
 	void GameState::CreateGameState(int font);

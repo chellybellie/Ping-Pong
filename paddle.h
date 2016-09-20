@@ -9,7 +9,7 @@ private:
 	unsigned int color;
 	float speed;
 	char up, down;
-	float Y = 10, X;
+	float X, Y, X2, Y2;
 	float size = 50;
 	int score = 0;
 public:
@@ -20,7 +20,7 @@ public:
 	float getBot() { return Y; }
 	float getX()   { return X; }
 
-	void createPaddle(float X, char up, char down, unsigned int color, int size, float speed);
+	void createPaddle(float X, float Y, float X2, float Y2, unsigned int color, int size, float speed);
 
 	void drawPaddle();
 
@@ -30,4 +30,6 @@ public:
 
 	void doScore() { score++; }
 };
+
+
 

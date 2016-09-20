@@ -16,11 +16,11 @@ void depart::play()
 void depart::draw()
 {
 	char buffer[64];
-	sprintf_s(buffer, "You Win!");
+	sprintf_s(buffer, "You lose!");
 	sfw::drawString(d, buffer, 100, 100, 20, 20);
-	sfw::drawLine(100, 80, 100 + 500 * (timer / 5.f), 80);
-	if (timer <= 4)
-		sfw::drawString(d, "CONGRATZ", 300, 300, 20, 20);
+	sfw::drawLine(100, 80, 100 + 500 * (timer / 4.f), 80);
+	if (timer <= 3)
+		sfw::drawString(d, "GIT GUD", 300, 300, 20, 20);
 }
 
 void depart::step()
