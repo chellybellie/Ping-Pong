@@ -15,7 +15,7 @@ float randRange(int start, int end)
 
 void Ball::drawball()
 {
-	//sfw::drawCircle(x, y, Radius, 12, color);
+
 	sfw::drawTexture(snake, x - (Radius / 2), y + (Radius / 2), sfw::getTextureWidth(snake), sfw::getTextureHeight(snake), 0.f, false);
 }
 
@@ -100,7 +100,6 @@ bool Ball::VwallCollide( VertWall & wall)
 
 
 
-// pass in two arrays- one for vertical and one for horizontal.
 void Ball::updateWalls( HorzWall wallH[], int hCount,  VertWall wallV[], int vCount)
 {
 	accX = 0;
@@ -175,9 +174,7 @@ void Ball::updateWalls( HorzWall wallH[], int hCount,  VertWall wallV[], int vCo
 void VertWall::draw()
 {
 	timer -= sfw::getDeltaTime();
-	//if (timer < 0)
-	//	color = BLACK;
-	//else color = RED;
+
 
 	if(flag != BROKEN || timer > 0)
 		sfw::drawLine(x, y, x, y + size, timer < 0 ? color : RED);
@@ -187,9 +184,7 @@ void VertWall::draw()
 void HorzWall::draw()
 {
 	timer -= sfw::getDeltaTime();
-	//if (timer < 0)
-	//	color = BLACK;
-	//else color = RED;
+
 	if (flag != BROKEN || timer > 0)
 		sfw::drawLine(x, y, x + size, y, timer < 0 ? color : RED);
 }
