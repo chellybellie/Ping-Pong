@@ -39,6 +39,9 @@
     <ClCompile Include="Option.cpp">
       <Filter>Source Files\Resource Files</Filter>
     </ClCompile>
+    <ClCompile Include="Controls.cpp">
+      <Filter>Source Files\Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="paddle.h">
@@ -63,6 +66,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Option.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Controls.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

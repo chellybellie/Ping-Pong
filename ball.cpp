@@ -15,12 +15,12 @@ float randRange(int start, int end)
 
 void Ball::drawball()
 {
-	sfw::drawCircle(x, y, Radius, 12, color);
-
+	//sfw::drawCircle(x, y, Radius, 12, color);
+	sfw::drawTexture(snake, x - (Radius / 2), y + (Radius / 2), sfw::getTextureWidth(snake), sfw::getTextureHeight(snake), 0.f, false);
 }
 
 
-void Ball::createBall(float a_x, float a_y, char a_up, char a_down, char a_left, char a_right, float a_Radius, unsigned int a_color, float a_health,int d)
+void Ball::createBall(float a_x, float a_y, char a_up, char a_down, char a_left, char a_right, float a_Radius, unsigned int a_color, float a_health,int d, unsigned a_snake, float a_leveltimer)
 {
 	x = a_x;
 	y = a_y;
@@ -34,7 +34,9 @@ void Ball::createBall(float a_x, float a_y, char a_up, char a_down, char a_left,
 	color = a_color;
 	health = a_health;
 	font = d;
+	snake = a_snake;
 	level = 0;
+	LevelTimer = 10.f;
 }
 void Ball::drawHealth()
 {
@@ -48,6 +50,10 @@ void Ball::drawHealth()
 
 void Ball::updateball(Player &p1, Player &p2, Player &p3)
 {
+	
+	
+
+
 	if (y > 600 - Radius)
 	{
 		y = 600 - Radius;
@@ -70,17 +76,24 @@ void Ball::updateball(Player &p1, Player &p2, Player &p3)
 
 }
 
+void Ball::levelTimer()
+{
+		LevelTimer -= sfw::getDeltaTime();
+	sfw::drawLine(10, 550, 10 + 100* (LevelTimer / 10.f), 550);
+	
+}
+
 
 
 bool Ball::HwallCollide( HorzWall & wall)
 {
-		return ((x > wall.x) && (x < wall.x + wall.size)) &&
+		return (wall.flag != BROKEN) && ((x > wall.x) && (x < wall.x + wall.size)) &&
 		(((y < wall.y) && (y - VelY > wall.y)) || ((y > wall.y) && (y - VelY < wall.y)));
 }
 
 bool Ball::VwallCollide( VertWall & wall)
 {
-	return
+	return (wall.flag != BROKEN) &&
 		(y > wall.y && y < wall.y + wall.size) &&
 		((x < wall.x && x - VelX > wall.x) || (x > wall.x && x - VelX < wall.x));
 }
@@ -111,15 +124,22 @@ void Ball::updateWalls( HorzWall wallH[], int hCount,  VertWall wallV[], int vCo
 	for (int i = 0; i < hCount; ++i)
 		if (HwallCollide(wallH[i]))
 		{
-			if (wallH[i].color == GREEN)
+			if (wallH[i].flag == VICTORY)
 			{
 				level++;
+				LevelTimer = 10.f;
 				x = 40;
 				y = 40;
+				VelX = 0;
+				VelY = 0;
 			}
-			else
+			else if (wallH[i].flag != FAKE)
 			{
-				health -= 10;
+				if (wallH[i].flag == NORMAL)
+					health -= 10;
+				else  // if BREAKABLE
+					wallH[i].flag = BROKEN;
+
 				VelY *= -1;
 				y = wallH[i].y + VelY - accY;
 				wallH[i].timer = 0.4f;
@@ -129,15 +149,22 @@ void Ball::updateWalls( HorzWall wallH[], int hCount,  VertWall wallV[], int vCo
 	for (int i = 0; i < vCount; ++i)
 		if (VwallCollide(wallV[i]))
 		{
-			if (wallV[i].color == GREEN)
+			if (wallV[i].flag == VICTORY)
 			{
 				level++;
+				LevelTimer = 10.f;
 				x = 40;
 				y = 40;
+				VelX = 0;
+				VelY = 0;
 			}
-			else
+			else if(wallV[i].flag != FAKE)
 			{
-				health -= 10;
+				if (wallV[i].flag == NORMAL)
+					health -= 10;
+				else // if BREAKABLE
+					wallV[i].flag = BROKEN;
+
 				VelX *= -1;
 				x = wallV[i].x + VelX - accX;
 				wallV[i].timer = 0.4f;
@@ -152,7 +179,8 @@ void VertWall::draw()
 	//	color = BLACK;
 	//else color = RED;
 
-	sfw::drawLine(x, y, x, y + size, timer < 0 ? color : RED);
+	if(flag != BROKEN || timer > 0)
+		sfw::drawLine(x, y, x, y + size, timer < 0 ? color : RED);
 }
 
 
@@ -162,6 +190,6 @@ void HorzWall::draw()
 	//if (timer < 0)
 	//	color = BLACK;
 	//else color = RED;
-
-	sfw::drawLine(x, y, x + size, y, timer < 0 ? color : RED);
+	if (flag != BROKEN || timer > 0)
+		sfw::drawLine(x, y, x + size, y, timer < 0 ? color : RED);
 }

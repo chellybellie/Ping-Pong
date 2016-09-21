@@ -1,15 +1,14 @@
 #pragma once
 #include "menustate.h"
 
-class depart
+class control
 {
 private:
 	int d;
 	float timer;
-	int w;
 public:
 	void init(int a_font);
-	void play(int w);
+	void play();
 	void draw();
 	void step();
 

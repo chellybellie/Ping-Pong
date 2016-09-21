@@ -10,28 +10,32 @@
 #include "menustate.h"
 #include "Depart.h"
 #include "Option.h"
+#include "Controls.h"
 
 
 
 void main()
 {
-	sfw::initContext(800, 600, "Ping Pong");
+	sfw::initContext(800, 600, "Snake Maze");
 	sfw::setBackgroundColor(0x9932CCFF);
 	
 	int d = sfw::loadTextureMap("./res/fontmap.png", 16, 16);
+	unsigned snake = sfw::loadTextureMap("./res/snake.png");
 
 	GameState gs;
 	splash splash;
 	depart depart;
 	option option;
+	control control;
 
+	control.init(d);
 	splash.init(d);
 	depart.init(d);
 	option.init(d);
 
 	menueState state = Enter_Splash;
 
-	gs.CreateGameState(d);
+	gs.CreateGameState(d, snake);
 
 	while (sfw::stepContext())
 	{
@@ -45,6 +49,14 @@ void main()
 			state = option.next();
 			break;
 
+		case Enter_Controls:
+			control.play();
+		case Controls:
+			control.step();
+			control.draw();
+			state = control.next();
+			break;
+
 		case Enter_Splash:
 			splash.play();
 		case Splash:
@@ -54,7 +66,7 @@ void main()
 			break;
 
 		case Enter_Depart:
-			depart.play();
+			depart.play(gs.getwinner());
 		case Depart:
 			depart.step();
 			depart.draw();
@@ -64,7 +76,7 @@ void main()
 
 		case Enter_Game:
 			
-			gs.CreateGameState(d);
+			gs.CreateGameState(d, snake);
 		case Game:
 			gs.updateGameState();
 			gs.drawGameState();

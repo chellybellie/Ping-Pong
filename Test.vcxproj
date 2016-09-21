@@ -125,6 +125,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ball.cpp" />
+    <ClCompile Include="Controls.cpp" />
     <ClCompile Include="Depart.cpp" />
     <ClCompile Include="draw.cpp" />
     <ClCompile Include="gamestate.cpp" />
@@ -140,6 +141,7 @@
     <ClInclude Include="gamestate.h" />
     <ClInclude Include="menustate.h" />
     <ClInclude Include="Option.h" />
+    <ClInclude Include="Controls.h" />
     <ClInclude Include="paddle.h" />
     <ClInclude Include="Splash.h" />
   </ItemGroup>

@@ -13,9 +13,9 @@ void option::play() { select = 0; timer = 3.f; }
 void option::draw()
 {
 
-	sfw::drawString(d, "Start New Game", 100, 100, 20, 20, 0, 0, select == 1 ? MAGENTA : WHITE);
+	sfw::drawString(d, " Press 'P' to Start New Game", 100, 100, 20, 20, 0, 0, select == 1 ? BLACK : GREEN);
 
-	sfw::drawString(d, "GOTO DEPART", 100, 300, 20, 20, 0, 0, select == 0 ? MAGENTA : WHITE);
+	sfw::drawString(d, " Press 'O' To Go To Options ", 100, 300, 20, 20, 0, 0, select == 0 ? BLACK : GREEN);
 }
 
 void option::step()
@@ -30,11 +30,11 @@ void option::step()
 
 menueState option::next()
 {
-	if (sfw::getKey('1'))
+	if (sfw::getKey('O'))
 	{
-		return Enter_Depart;
+		return Enter_Controls;
 	}
-	if (sfw::getKey('2'))
+	if (sfw::getKey('P'))
 	{
 		return Enter_Game;
 	}

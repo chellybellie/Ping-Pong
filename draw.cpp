@@ -7,7 +7,7 @@
 void drawScore(unsigned font, float health)
 {
 	char buffer[64] = { 0 };
-	sprintf_s(buffer, "%d",health);
+	sprintf_s(buffer,  "%d",health);
 	sfw::drawString(font, buffer, 650, 600, 40, 40);
 }
 

@@ -13,13 +13,16 @@ private:
 	Ball b1;
 	unsigned font;
 	bool GameOver;
+	int winner = -1;
+	unsigned snake;
+	HorzWall hwalls[2][15];
+	VertWall vwalls[2][15];
 
-	HorzWall hwalls[2][5];
-	VertWall vwalls[2][5];
 
 
 public:
-	void GameState::CreateGameState(int font);
+	int getwinner() { return winner; }
+	void GameState::CreateGameState(int font, unsigned snake);
 	void GameState::updateGameState();
 	void GameState::drawGameState();
 
